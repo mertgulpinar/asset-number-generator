@@ -1,0 +1,42 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Hyland Asset Number Generator</title>
+  <style>
+    body { font-family: Arial; padding: 20px; }
+    input, button { margin: 5px; }
+  </style>
+</head>
+<body>
+  <h2>Asset Tracking Number Generator</h2>
+  <label>Prefix:</label><input type="text" id="prefix" value="RDV"><br>
+  <label>Count:</label><input type="number" id="count" value="3"><br>
+  <button onclick="generateAssetNumbers()">Generate</button>
+
+  <h3>Generated Asset Numbers:</h3>
+  <div id="output"></div>
+
+  <script>
+    function generateAssetNumbers() {
+      const prefix = document.getElementById('prefix').value.toUpperCase();
+      const count = parseInt(document.getElementById('count').value);
+      let numbers = [];
+
+      // Retrieve last number from localStorage or start from 1
+      let lastNumber = parseInt(localStorage.getItem('lastAssetNumber')) || 0;
+
+      for (let i = 1; i <= count; i++) {
+        lastNumber++;
+        let formatted = prefix + '-' + String(lastNumber).padStart(4, '0');
+        numbers.push(formatted);
+      }
+
+      // Save updated last number to localStorage
+      localStorage.setItem('lastAssetNumber', lastNumber);
+
+      document.getElementById('output').innerText = numbers.join(', ');
+    }
+  </script>
+</body>
+</html>
