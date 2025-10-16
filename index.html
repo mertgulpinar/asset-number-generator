@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Hyland Asset Number Generator</title>
+  <title>Asset Number Generator</title>
   <style>
     body { font-family: Arial; padding: 20px; }
     input, button { margin: 5px; }
@@ -11,7 +11,7 @@
 <body>
   <h2>Asset Tracking Number Generator</h2>
   <label>Prefix:</label><input type="text" id="prefix" value="RDV"><br>
-  <label>Count:</label><input type="number" id="count" value="3"><br>
+  <label>Count:</label><input type="number" id="count" value="1"><br>
   <button onclick="generateAssetNumbers()">Generate</button>
 
   <h3>Generated Asset Numbers:</h3>
@@ -23,12 +23,12 @@
       const count = parseInt(document.getElementById('count').value);
       let numbers = [];
 
-      // Retrieve last number from localStorage or start from 1
-      let lastNumber = parseInt(localStorage.getItem('lastAssetNumber')) || 0;
+      // Start from 10550 if no value is stored
+      let lastNumber = parseInt(localStorage.getItem('lastAssetNumber')) || 10550;
 
       for (let i = 1; i <= count; i++) {
         lastNumber++;
-        let formatted = prefix + '-' + String(lastNumber).padStart(4, '0');
+        let formatted = prefix + '-' + String(lastNumber).padStart(6, '0');
         numbers.push(formatted);
       }
 
